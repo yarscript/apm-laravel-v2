@@ -4,7 +4,10 @@
 namespace App\Console\Commands;
 
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Console\Command;
+use Illuminate\Support\Collection;
 
 class Test extends Command
 {
@@ -61,6 +64,10 @@ class Test extends Command
 //        dump(((bool)$transaction) ? 'Transact ceated' : 'Transact dedn t ceate');
 
         try {
+            $request = new Request('POST', 'http://egor-pidor.su');
+            $client = new Client($request);
+            $client->send($request);
+
             throw new \Exception('Test Exception');
         } catch (\Exception $exception) {
             $agent->captureThrowable($exception);
