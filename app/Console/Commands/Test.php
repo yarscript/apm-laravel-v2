@@ -65,7 +65,7 @@ class Test extends Command
 
         try {
             $request = new Request('POST', 'http://egor-pidor.su');
-            $client = new Client($request);
+            $client = new Client();
             $client->send($request);
 
             throw new \Exception('Test Exception');
