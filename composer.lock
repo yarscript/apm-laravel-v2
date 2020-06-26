@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ff600c1fe75eaf4119d7f795748e6b15",
+    "content-hash": "df4f5c46a74f7a42fe06baf406433c76",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1343,18 +1343,12 @@
             "time": "2020-06-17T14:59:55+00:00"
         },
         {
-            "name": "philkra/elastic-apm-php-agent",
+            "name": "philkra/elastic-apm-php",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/philkra/elastic-apm-php-agent.git",
-                "reference": "010db6af14573f4ad37fabfe26a86f4be4804f64"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/philkra/elastic-apm-php-agent/zipball/010db6af14573f4ad37fabfe26a86f4be4804f64",
-                "reference": "010db6af14573f4ad37fabfe26a86f4be4804f64",
-                "shasum": ""
+                "url": "https://antonzaika1993:40e5d36b5f14d0a880b65e9fb84c269b646d1d39@github.com/antonzaika1993/elastic-apm-php",
+                "reference": "9ce212420798122734411cc5485e963634a34acc"
             },
             "require": {
                 "ext-curl": "*",
@@ -1375,28 +1369,16 @@
                     "PhilKra\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "PhilKra\\Tests\\": "tests/"
+                }
+            },
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Philip Krauss",
-                    "email": "philip@philipkrauss.at",
-                    "homepage": "https://github.com/philkra"
-                },
-                {
-                    "name": "George Boot",
-                    "email": "george@entryninja.com"
-                },
-                {
-                    "name": "Mohamed Al Ashaal",
-                    "email": "mohamed.alashaal@speakol.com",
-                    "homepage": "https://github.com/speakol-ads"
-                }
-            ],
             "description": "A php agent for Elastic APM v2 Intake API",
-            "time": "2020-06-15T10:34:12+00:00"
+            "time": "2020-06-26T08:12:44+00:00"
         },
         {
             "name": "phpoption/phpoption",

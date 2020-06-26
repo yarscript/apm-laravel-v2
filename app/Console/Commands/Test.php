@@ -4,10 +4,12 @@
 namespace App\Console\Commands;
 
 
+use App\Helpers\ElasticApmPhp;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
+use PhilKra\Agent;
 
 class Test extends Command
 {
@@ -25,62 +27,24 @@ class Test extends Command
      */
     protected $description = 'Test';
 
-    public function __construct()
+    /**
+     * @var ElasticApmPhp|Agent
+     */
+    protected $apmPhp;
+
+    public function __construct(ElasticApmPhp $apmPhp)
     {
         parent::__construct();
+
+        $this->apmPhp = $apmPhp;
     }
 
     public function handle(): void
     {
-
-        $config = [
-            'appName'     => 'Test-apm',
-//            'appVersion'  => '7.0.0',
-            'serverUrl'   => 'http://10.0.4.227:8200',
-//            'ampVersion' => 'v2'
-//            'serviceName' => 'testt'
-//            'apmVersion' => '7.7.1',
-//            'apmVersion' => '',
-//            'hostname' => 'ip-10-0-2-188'
-//            'apmVersion' => '',
-//            'secretToken' => 'DKKbdsupZWEEzYd4LX34TyHF36vDKRJP',
-//            'hostname'    => 'stage-php',
-//            'env'         => ['DOCUMENT_ROOT', 'REMOTE_ADDR', 'REMOTE_USER'],
-//            'cookies'     => ['my-cookie'],
-//            'httpClient'  => [
-//                'verify' => false,
-//                'proxy'  => 'tcp://localhost:8125'
-//            ],
-        ];
-
-
-//        Config::all();
-        $agent = new \PhilKra\Agent($config);
-
-        dump(((bool)$agent) ? 'Agent created' : 'Agent didn t create');
-
-        $transaction = $agent->startTransaction('TestTransaction');
-
-//        dump(((bool)$transaction) ? 'Transact ceated' : 'Transact dedn t ceate');
-
         try {
-            $request = new Request('POST', 'http://egor-pidor.su');
-            $client = new Client();
-            $client->send($request);
-
-            throw new \Exception('Test Exception');
+            throw new \Exception('test Exception with helper');
         } catch (\Exception $exception) {
-            $agent->captureThrowable($exception);
-            $debug = true;
+            $transaction = $this->apmPhp->captureThrowable($exception);
         }
-
-        $agent->stopTransaction($transaction->getTransactionName());
-        dump('Transation stoped');
-//        dump($agent);
-
-        $test = $agent->send();
-        dump('sended');
-        dump($test);
-        $dbg = true;
     }
 }
