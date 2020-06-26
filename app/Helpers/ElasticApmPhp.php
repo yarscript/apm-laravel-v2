@@ -24,7 +24,10 @@ class ElasticApmPhp
 
     public function __call($name, $arguments)
     {
-        return $this->agent->$name($arguments);
+        if ($arguments) {
+            return $this->agent->$name($arguments);
+        }
+        return $this->agent->$name();
     }
 
     public function __get($name)
@@ -42,7 +45,17 @@ class ElasticApmPhp
         $name = ['name' => 'Test'];
         $serverUrl = ['serverUrl' => 'http://10.0.4.227:8200'];
 
-        $this->agent = new PhilKra\Agent(['appName' => 'helperTest', 'serverUrl' => 'http://10.0.4.227:8200']);
+        $this->agent = new PhilKra\Agent($config + $name + $serverUrl);
+    }
+
+    /**
+     * @param \Throwable $throwable
+     * @return ElasticApmPhp
+     */
+    public function captureThrowable(\Throwable $throwable)
+    {
+        $this->agent->captureThrowable($throwable);
+        return $this;
     }
 
 //    public function startTransaction(string $name, array $context = [], float $start = null): ElasticApmPhp
