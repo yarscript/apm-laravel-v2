@@ -46,7 +46,7 @@ class ElasticApmPhp
         $serverUrl = ['serverUrl' => 'http://10.0.4.227:8200'];
 
         $this->agent = new PhilKra\Agent([
-            'name' => 'Test',
+            'appName' => 'Test',
             'serverUrl' => 'http://10.0.4.227:8200'
         ]);
     }
