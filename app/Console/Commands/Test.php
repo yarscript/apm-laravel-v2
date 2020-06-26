@@ -44,6 +44,7 @@ class Test extends Command
         try {
             throw new \Exception('test Exception with helper');
         } catch (\Exception $exception) {
+            dump($exception);
             $transaction = $this->apmPhp->captureThrowable($exception);
         }
     }
