@@ -4,12 +4,10 @@
 namespace App\Console\Commands;
 
 
-//use App\Helpers\ElasticApmPhp;
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request;
 use Illuminate\Console\Command;
+use App\Facades\ApmCollector;
 use Illuminate\Support\Collection;
-use PhilKra\Agent as ApmAgent;
+use PhilKra\Agent;
 
 class Test extends Command
 {
@@ -29,15 +27,15 @@ class Test extends Command
 
     /**
 //     * @var ElasticApmPhp|Agent
-     * @var ApmAgent
+//     * @var ApmAgent
      */
     protected $apmAgent;
 
-    public function __construct(ApmAgent $apmAgent)
+    public function __construct()
     {
         parent::__construct();
-
-        $this->apmAgent = $apmAgent;
+//        $agent->startTransaction('test');
+//        $this->apmAgent = $apmAgent;
     }
 
     public function handle(): void
@@ -45,8 +43,11 @@ class Test extends Command
         try {
             throw new \Exception('test Exception with helper');
         } catch (\Exception $exception) {
-            $this->apmAgent->captureThrowable($exception);
+//            $this->apmAgent->captureThrowable($exception);
+            ApmCollector::captureThrowable($exception);
         }
+
+        $collection = (new Collection())->first()->toString();
 
     }
 }

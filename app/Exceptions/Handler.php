@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use App\Facades\ApmCollector;
 
 class Handler extends ExceptionHandler
 {
@@ -37,6 +38,9 @@ class Handler extends ExceptionHandler
     public function report(Throwable $exception)
     {
         parent::report($exception);
+
+        ApmCollector::captureThrowable($exception);
+        ApmCollector::send();
     }
 
     /**
